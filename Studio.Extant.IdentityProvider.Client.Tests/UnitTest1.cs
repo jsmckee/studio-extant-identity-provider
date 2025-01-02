@@ -5,7 +5,6 @@ namespace Studio.Extant.IdentityProvider.Client.Tests
     [Fact]
     public void Test1()
     {
-
     }
   }
 }
