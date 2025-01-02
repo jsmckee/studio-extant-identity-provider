@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studio.Extant.IdentityProvider", "Studio.Extant.IdentityProvider\Studio.Extant.IdentityProvider.csproj", "{A9B7D378-169A-4949-9A14-9F0393EC9AAB}"
 EndProject
@@ -15,9 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		validate-build.yml = validate-build.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studio.Extant.IdentityProvider.Tests", "..\Studio.Extant.IdentityProvider.Tests\Studio.Extant.IdentityProvider.Tests.csproj", "{9D4E40A9-D5BB-4B4C-98E1-9A9E05D8B1F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studio.Extant.IdentityProvider.Client.Tests", "Studio.Extant.IdentityProvider.Client.Tests\Studio.Extant.IdentityProvider.Client.Tests.csproj", "{3CD65A9F-8D63-49B7-B83F-4E64085868F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studio.Extant.IdentityProvider.Client.Tests", "..\Studio.Extant.IdentityProvider.Client.Tests\Studio.Extant.IdentityProvider.Client.Tests.csproj", "{B9EA8E81-7252-4FD4-BA78-80534E8E6135}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studio.Extant.IdentityProvider.Tests", "Studio.Extant.IdentityProvider.Tests\Studio.Extant.IdentityProvider.Tests.csproj", "{A1C4EE35-A919-4012-96CA-969A81010C68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,14 +33,14 @@ Global
 		{E4D170BF-8796-415A-9A53-FE853DFB4482}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4D170BF-8796-415A-9A53-FE853DFB4482}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4D170BF-8796-415A-9A53-FE853DFB4482}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9D4E40A9-D5BB-4B4C-98E1-9A9E05D8B1F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D4E40A9-D5BB-4B4C-98E1-9A9E05D8B1F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9D4E40A9-D5BB-4B4C-98E1-9A9E05D8B1F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9D4E40A9-D5BB-4B4C-98E1-9A9E05D8B1F6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B9EA8E81-7252-4FD4-BA78-80534E8E6135}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9EA8E81-7252-4FD4-BA78-80534E8E6135}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B9EA8E81-7252-4FD4-BA78-80534E8E6135}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B9EA8E81-7252-4FD4-BA78-80534E8E6135}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CD65A9F-8D63-49B7-B83F-4E64085868F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CD65A9F-8D63-49B7-B83F-4E64085868F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CD65A9F-8D63-49B7-B83F-4E64085868F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CD65A9F-8D63-49B7-B83F-4E64085868F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1C4EE35-A919-4012-96CA-969A81010C68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1C4EE35-A919-4012-96CA-969A81010C68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1C4EE35-A919-4012-96CA-969A81010C68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1C4EE35-A919-4012-96CA-969A81010C68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
