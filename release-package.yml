@@ -1,0 +1,74 @@
+pool:
+  vmImage: ubuntu-latest
+
+name: $(Rev:r) 
+
+trigger:
+  branches:
+    include:
+      - release
+
+pr: none
+
+variables:
+  - name: NUGET.PLUGIN.HANDSHAKE.TIMEOUT.IN.SECONDS
+    value: 20
+  - name: NUGET.PLUGIN.REQUEST.TIMEOUT.IN.SECONDS
+    value: 20
+  - name: majorVersion
+    value: 1
+  - name: minorVersion
+    value: $[counter(variables['majorVersion'], 0)]
+  - name: version
+    value: '$(majorVersion).$(minorVersion).0'
+
+jobs:
+  - job: BuildPackage 
+    pool:
+      vmImage: ubuntu-latest
+      demands:
+      - msbuild
+      
+    steps:
+    - task: NuGetToolInstaller@0
+      displayName: 'Install NuGet'
+      inputs:
+        versionSpec: '6.*'
+        checkLatest: true
+
+    - task: NuGetAuthenticate@1
+      displayName: Artifact Authentication
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Package Libraries'
+      inputs:
+        command: 'pack'
+        packagesToPack: 'Studio.Extant.IdentityProvider/Studio.Extant.IdentityProvider.csproj'
+        includesymbols: true
+        includesource: true
+        versioningScheme: byEnvVar
+        versionEnvVar: 'version'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Package Libraries'
+      inputs:
+        command: 'pack'
+        packagesToPack: 'Studio.Extant.IdentityProvider.Client/Studio.Extant.IdentityProvider.Client.csproj'
+        includesymbols: true
+        includesource: true
+        versioningScheme: byEnvVar
+        versionEnvVar: 'version'
+        
+    - task: NuGetCommand@2
+      displayName: Publish to Azure
+      inputs:
+        command: 'push'
+        packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+        nuGetFeedType: 'internal'
+        publishVstsFeed: '9862edd8-911b-43ca-9e4a-051ee67042d6/29569213-a962-443d-9c30-dac9710c5755'
+        verbosityPush: 'Quiet'
+
+    - task: git-tag-on-release-task@9
+      inputs:
+        staticTagName: '$(version)'
+  

@@ -1,0 +1,48 @@
+pool:
+  vmImage: ubuntu-latest
+
+name: $(Rev:r) 
+
+trigger: none
+      
+pr:
+  branches:
+    include:
+    - 'main' 
+    - 'release'
+
+variables:
+  - name: NUGET.PLUGIN.HANDSHAKE.TIMEOUT.IN.SECONDS
+    value: 20
+  - name: NUGET.PLUGIN.REQUEST.TIMEOUT.IN.SECONDS
+    value: 20
+
+jobs:
+  - job: BuildPackage 
+    pool:
+      vmImage: ubuntu-latest
+      demands:
+      - msbuild
+     
+    steps:
+    - task: NuGetToolInstaller@0
+      displayName: 'Install NuGet'
+      inputs:
+        versionSpec: '6.*'
+        checkLatest: true
+
+    - task: NuGetAuthenticate@1
+      displayName: Artifact Authentication
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Run Identity Provider Tests'
+      inputs:
+        command: 'run'
+        projects: 'Studio.Extant.IdentityProvider.Tests/Studio.Extant.IdentityProvider.Tests.csproj'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Run Identity Client Provider Tests'
+      inputs:
+        command: 'run'
+        projects: 'Studio.Extant.IdentityProvider.Client.Tests/Studio.Extant.IdentityProvider.Client.Tests.csproj'
+
