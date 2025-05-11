@@ -9,49 +9,50 @@ namespace Studio.Extant.IdentityProvider;
 /// </summary>
 public interface IDataSeedProvider
 {
-  /// <summary>
-  /// Seed the data.
-  /// </summary>
-  /// <param name="cancellationToken"></param>
-  /// <returns></returns>
-  public Task SeedAsync(CancellationToken cancellationToken);
+    /// <summary>
+    /// Seed the data.
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public Task SeedAsync(CancellationToken cancellationToken);
 }
 
 /// <inheritdoc />
-internal sealed class DataSeedProvider(IIdentityDatabase identityDatabase, UserManager<IdentityUser> userManager) : IDataSeedProvider
+internal sealed class DataSeedProvider(UserManager<IdentityUser> userManager) : IDataSeedProvider
 {
 
-  /// <inheritdoc />
-  public async Task SeedAsync(CancellationToken cancellationToken)
-  {
-    if (!identityDatabase.Users.Any())
+    /// <inheritdoc />
+    public async Task SeedAsync(CancellationToken cancellationToken)
     {
-      Debug.WriteLine("Seeding database with default data...");
-      await userManager.CreateAsync(new IdentityUser()
-      {
-        Id = Guid.NewGuid().ToString(),
-        UserName = "admin",
-        NormalizedUserName = "ADMIN",
-        Email = "admin@craqk.extant.studio",
-        NormalizedEmail = "ADMIN@CRAQK.EXTANT.STUDIO",
-        EmailConfirmed = false,
-        PasswordHash = "",
-        SecurityStamp = "",
-        ConcurrencyStamp = "",
-        PhoneNumberConfirmed = false,
-        TwoFactorEnabled = false,
-        LockoutEnabled = false,
-        AccessFailedCount = 0
-      });
+    
+        if (!userManager.Users.Any())
+        {
+            Debug.WriteLine("Seeding database with default data...");
+            await userManager.CreateAsync(new IdentityUser()
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserName = "admin",
+                NormalizedUserName = "ADMIN",
+                Email = "admin@craqk.extant.studio",
+                NormalizedEmail = "ADMIN@CRAQK.EXTANT.STUDIO",
+                EmailConfirmed = false,
+                PasswordHash = "",
+                SecurityStamp = "",
+                ConcurrencyStamp = "",
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                LockoutEnabled = false,
+                AccessFailedCount = 0
+            });
 
-      var defaultUser = identityDatabase.Users.FirstOrDefault();
+            var defaultUser = userManager.Users.FirstOrDefault();
 
-      if (defaultUser != null)
-      {
-        var token = userManager.GeneratePasswordResetTokenAsync(defaultUser).Result;
+            if (defaultUser != null)
+            {
+                var token = userManager.GeneratePasswordResetTokenAsync(defaultUser).Result;
 
-        await userManager.ResetPasswordAsync(defaultUser, token, "forNoMan1!");
-      }
+                await userManager.ResetPasswordAsync(defaultUser, token, "forNoMan1!");
+            }
+        }
     }
-  }
 }
