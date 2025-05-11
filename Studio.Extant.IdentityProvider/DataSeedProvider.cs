@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Identity;
 using Studio.Extant.IdentityProvider.Database;
 
 namespace Studio.Extant.IdentityProvider;
@@ -25,7 +26,8 @@ internal sealed class DataSeedProvider(IIdentityDatabase identityDatabase, UserM
   {
     if (!identityDatabase.Users.Any())
     {
-      userManager.CreateAsync(new IdentityUser()
+      Debug.WriteLine("Seeding database with default data...");
+      await userManager.CreateAsync(new IdentityUser()
       {
         Id = Guid.NewGuid().ToString(),
         UserName = "admin",
@@ -40,7 +42,7 @@ internal sealed class DataSeedProvider(IIdentityDatabase identityDatabase, UserM
         TwoFactorEnabled = false,
         LockoutEnabled = false,
         AccessFailedCount = 0
-      }).Wait();
+      });
 
       var defaultUser = identityDatabase.Users.FirstOrDefault();
 
